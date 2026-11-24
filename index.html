@@ -33,7 +33,7 @@
 <div class="btn" id="bL">◀</div><div class="btn" id="bR">▶</div><div class="btn" id="bU">▲</div><div class="btn" id="bD">▼</div><div class="btn" id="bPunch">HIT</div><div class="btn" id="bJump">JUMP</div><div class="btn" id="bRage">RAGE</div><div id="bMute">🔊</div>
 <script>
 {
-const SHEETS={"punch": {"fw": 319, "fh": 300, "cols": 10, "ax": 124.4, "n": 49, "src": "assets/s_punch.webp"}, "walk": {"fw": 214, "fh": 300, "cols": 10, "ax": 106.1, "n": 24, "src": "assets/s_walk.webp"}, "jump": {"fw": 365, "fh": 300, "cols": 10, "ax": 191.4, "n": 49, "src": "assets/s_jump.webp"}, "ewalk": {"fw": 191, "fh": 300, "cols": 10, "ax": 95.4, "n": 48, "src": "assets/s_ewalk.webp"}, "eatk": {"fw": 382, "fh": 300, "cols": 10, "ax": 101.5, "n": 39, "src": "assets/s_eatk.webp"}, "eko": {"fw": 306, "fh": 300, "cols": 10, "ax": 187.3, "n": 40, "src": "assets/s_eko.webp"}, "jcombo": {"fw": 650, "fh": 300, "cols": 10, "ax": 323.9, "n": 48, "feet": 575, "src": "assets/s_jcombo.webp"}, "jwalk": {"fw": 206, "fh": 300, "cols": 10, "ax": 110.7, "n": 48, "feet": 575, "src": "assets/s_jwalk.webp"}, "jjump": {"fw": 237, "fh": 300, "cols": 10, "ax": 128.9, "n": 48, "feet": 575, "src": "assets/s_jjump.webp"}, "bwalk": {"fw": 433, "fh": 363, "cols": 10, "ax": 241.6, "n": 24, "feet": 657, "src": "assets/s_bwalk.webp"}, "batk": {"fw": 589, "fh": 363, "cols": 10, "ax": 298.5, "n": 45, "feet": 657, "src": "assets/s_batk.webp"}, "bko": {"fw": 584, "fh": 363, "cols": 10, "ax": 314.7, "n": 41, "feet": 657, "src": "assets/s_bko.webp"}, "cwalk": {"fw": 264, "fh": 300, "cols": 10, "ax": 143.1, "n": 48, "feet": 558, "src": "assets/s_cwalk.webp"}, "catk": {"fw": 558, "fh": 300, "cols": 10, "ax": 231.5, "n": 47, "feet": 557, "src": "assets/s_catk.webp"}, "cko": {"fw": 568, "fh": 300, "cols": 10, "ax": 320.8, "n": 40, "feet": 555, "src": "assets/s_cko.webp"}, "gwalk": {"fw": 352, "fh": 363, "cols": 10, "ax": 192.9, "n": 24, "feet": 669, "src": "assets/s_gwalk.webp"}, "gatk": {"fw": 526, "fh": 363, "cols": 10, "ax": 209.1, "n": 41, "feet": 669, "src": "assets/s_gatk.webp"}, "gko": {"fw": 597, "fh": 363, "cols": 10, "ax": 324.9, "n": 40, "feet": 669, "src": "assets/s_gko.webp"}, "fcombo": {"fw": 423, "fh": 300, "cols": 10, "ax": 184.8, "n": 48, "feet": 575, "src": "assets/s_fcombo.webp"}, "fwalk": {"fw": 215, "fh": 300, "cols": 10, "ax": 94.9, "n": 24, "feet": 575, "src": "assets/s_fwalk.webp"}, "fjump": {"fw": 391, "fh": 300, "cols": 10, "ax": 191.9, "n": 17, "feet": 575, "src": "assets/s_fjump.webp"}, "bcombo": {"fw": 397, "fh": 300, "cols": 10, "ax": 152.3, "n": 48, "feet": 523, "src": "assets/s_bcombo.webp"}, "bwalk2": {"fw": 180, "fh": 300, "cols": 10, "ax": 70.6, "n": 24, "feet": 523, "src": "assets/s_bwalk2.webp"}, "bjump": {"fw": 258, "fh": 300, "cols": 10, "ax": 117.8, "n": 32, "feet": 523, "src": "assets/s_bjump.webp"}};
+const SHEETS={"punch": {"fw": 319, "fh": 300, "cols": 10, "ax": 124.4, "n": 49, "src": "assets/s_punch.webp"}, "walk": {"fw": 214, "fh": 300, "cols": 10, "ax": 106.1, "n": 24, "src": "assets/s_walk.webp"}, "jump": {"fw": 365, "fh": 300, "cols": 10, "ax": 191.4, "n": 49, "src": "assets/s_jump.webp"}, "ewalk": {"fw": 191, "fh": 300, "cols": 10, "ax": 95.4, "n": 48, "src": "assets/s_ewalk.webp"}, "eatk": {"fw": 382, "fh": 300, "cols": 10, "ax": 101.5, "n": 39, "src": "assets/s_eatk.webp"}, "eko": {"fw": 306, "fh": 300, "cols": 10, "ax": 187.3, "n": 40, "src": "assets/s_eko.webp"}, "jcombo": {"fw": 650, "fh": 300, "cols": 10, "ax": 323.9, "n": 48, "feet": 575, "src": "assets/s_jcombo.webp"}, "jwalk": {"fw": 206, "fh": 300, "cols": 10, "ax": 110.7, "n": 48, "feet": 575, "src": "assets/s_jwalk.webp"}, "jjump": {"fw": 237, "fh": 300, "cols": 10, "ax": 128.9, "n": 48, "feet": 575, "src": "assets/s_jjump.webp"}, "bwalk": {"fw": 433, "fh": 363, "cols": 10, "ax": 241.6, "n": 24, "feet": 657, "src": "assets/s_bwalk.webp"}, "batk": {"fw": 589, "fh": 363, "cols": 10, "ax": 298.5, "n": 45, "feet": 657, "src": "assets/s_batk.webp"}, "bko": {"fw": 584, "fh": 363, "cols": 10, "ax": 314.7, "n": 41, "feet": 657, "src": "assets/s_bko.webp"}, "cwalk": {"fw": 264, "fh": 300, "cols": 10, "ax": 143.1, "n": 48, "feet": 558, "src": "assets/s_cwalk.webp"}, "catk": {"fw": 558, "fh": 300, "cols": 10, "ax": 231.5, "n": 47, "feet": 557, "src": "assets/s_catk.webp"}, "cko": {"fw": 568, "fh": 300, "cols": 10, "ax": 320.8, "n": 40, "feet": 555, "src": "assets/s_cko.webp"}, "gwalk": {"fw": 352, "fh": 363, "cols": 10, "ax": 192.9, "n": 24, "feet": 669, "src": "assets/s_gwalk.webp"}, "gatk": {"fw": 526, "fh": 363, "cols": 10, "ax": 209.1, "n": 41, "feet": 669, "src": "assets/s_gatk.webp"}, "gko": {"fw": 597, "fh": 363, "cols": 10, "ax": 324.9, "n": 40, "feet": 669, "src": "assets/s_gko.webp"}, "fcombo": {"fw": 423, "fh": 300, "cols": 10, "ax": 184.8, "n": 48, "feet": 575, "src": "assets/s_fcombo.webp"}, "fwalk": {"fw": 215, "fh": 300, "cols": 10, "ax": 94.9, "n": 24, "feet": 575, "src": "assets/s_fwalk.webp"}, "fjump": {"fw": 391, "fh": 300, "cols": 10, "ax": 191.9, "n": 17, "feet": 575, "src": "assets/s_fjump.webp"}, "bcombo": {"fw": 397, "fh": 300, "cols": 10, "ax": 152.3, "n": 48, "feet": 523, "src": "assets/s_bcombo.webp"}, "bwalk2": {"fw": 180, "fh": 300, "cols": 10, "ax": 70.6, "n": 24, "feet": 523, "src": "assets/s_bwalk2.webp"}, "bjump": {"fw": 258, "fh": 300, "cols": 10, "ax": 117.8, "n": 32, "feet": 523, "src": "assets/s_bjump.webp"}, "swalk": {"fw": 216, "fh": 300, "cols": 10, "ax": 97.5, "n": 48, "feet": 555, "src": "assets/s_swalk.webp"}, "satk": {"fw": 466, "fh": 300, "cols": 10, "ax": 160.4, "n": 42, "feet": 555, "src": "assets/s_satk.webp"}, "sko": {"fw": 463, "fh": 300, "cols": 10, "ax": 324.9, "n": 39, "feet": 555, "src": "assets/s_sko.webp"}, "wwalk": {"fw": 447, "fh": 363, "cols": 10, "ax": 238.6, "n": 48, "feet": 655, "src": "assets/s_wwalk.webp"}, "wko": {"fw": 628, "fh": 363, "cols": 10, "ax": 310.7, "n": 45, "feet": 655, "src": "assets/s_wko.webp"}};
 const IMGS={};let loaded=0;
 // ---- character animation tables ----
 const CHARS={
@@ -84,27 +84,22 @@ const EA={
   eatk:{s:'eatk',f:[...Array(39).keys()].slice(1),fps:22,hitAt:22},
   ehurt:{s:'eko',f:[0,1,2,3,4,5,4,3,2,1],fps:22},
   eko:{s:'eko',f:[...Array(34).keys()].map(i=>i+6),fps:24},
-  cwalk:{s:'cwalk',f:[...Array(48).keys()],fps:16,loop:true},
-  cstand:{s:'cwalk',f:[0,1,2,3,4,5,6,7],fps:6,loop:true},
-  catk:{s:'catk',f:[...Array(47).keys()],fps:22,hitAt:22},
-  churt:{s:'cko',f:[0,1,2,1,0],fps:18},
-  cko:{s:'cko',f:[...Array(40).keys()],fps:22},
+  cwalk:{s:'cwalk',f:[...Array(48).keys()],fps:16,loop:true}, cstand:{s:'cwalk',f:[0,1,2,3,4,5,6,7],fps:6,loop:true}, catk:{s:'catk',f:[...Array(47).keys()],fps:22,hitAt:22}, churt:{s:'cko',f:[0,1,2,1,0],fps:18}, cko:{s:'cko',f:[...Array(40).keys()],fps:22},
   bwalk:{s:'bwalk',f:[...Array(24).keys()],fps:8,loop:true},
   bstand:{s:'batk',f:[0,1,2,1],fps:4,loop:true},
   batk:{s:'batk',f:[...Array(45).keys()],fps:18,hitAt:23},
   bhurt:{s:'bko',f:[0,1,2,3,4,5,4,3],fps:16},
   bko:{s:'bko',f:[...Array(41).keys()],fps:14},
-  gwalk:{s:'gwalk',f:[...Array(24).keys()],fps:8,loop:true},
-  gstand:{s:'gwalk',f:[0,1,2,3,2,1],fps:5,loop:true},
-  gatk:{s:'gatk',f:[...Array(41).keys()],fps:16,hitAt:20},
-  ghurt:{s:'gko',f:[0,1,2,3,4,3,2],fps:16},
-  gko:{s:'gko',f:[...Array(40).keys()],fps:13}
+  swalk:{s:'swalk',f:[...Array(48).keys()],fps:16,loop:true}, sstand:{s:'swalk',f:[0,1,2,3,4,5,6,7],fps:6,loop:true}, satk:{s:'satk',f:[...Array(42).keys()],fps:20,hitAt:17}, shurt:{s:'sko',f:[4,5,6,5,4],fps:16}, sko:{s:'sko',f:[...Array(39).keys()],fps:20},
+  wwalk:{s:'wwalk',f:[...Array(48).keys()],fps:12,loop:true}, wstand:{s:'wwalk',f:[...Array(48).keys()],fps:10,loop:true}, watk:{s:'wwalk',f:[...Array(30).keys()],fps:15,hitAt:16}, whurt:{s:'wko',f:[0,1,2,3,4,3,2],fps:16}, wko:{s:'wko',f:[...Array(45).keys()],fps:13},
+  gwalk:{s:'gwalk',f:[...Array(24).keys()],fps:8,loop:true}, gstand:{s:'gwalk',f:[0,1,2,3,2,1],fps:5,loop:true}, gatk:{s:'gatk',f:[...Array(41).keys()],fps:16,hitAt:20}, ghurt:{s:'gko',f:[0,1,2,3,4,3,2],fps:16}, gko:{s:'gko',f:[...Array(40).keys()],fps:13}
 };
-function AN(o){return o.c?CHARS[o.c].A[o.anim]:EA[(o.type==='c'&&o.anim[0]==='e')?'c'+o.anim.slice(1):(o.kind==='g'&&o.anim[0]==='b')?'g'+o.anim.slice(1):o.anim];}
+function AN(o){return o.c?CHARS[o.c].A[o.anim]:EA[((o.type==='c'||o.type==='s')&&o.anim[0]==='e')?o.type+o.anim.slice(1):((o.kind==='g'||o.kind==='w')&&o.anim[0]==='b')?o.kind+o.anim.slice(1):o.anim];}
 // ---------- AUDIO ----------
 const STAGES=[
   {name:'NEON CITY',bg:'assets/bg1.webp',floor:0.68,music:'assets/stage1.mp3',bossHp:26,boss:'b',bossName:'BARON STOAT'},
-  {name:'PREHISTORIC JUNGLE',bg:'assets/bg2.webp',music:'assets/stage2.mp3',bossHp:34,boss:'g',bossName:'CHIEF GNASH & REX',floor:0.72}
+  {name:'PREHISTORIC JUNGLE',bg:'assets/bg2.webp',music:'assets/stage2.mp3',bossHp:34,boss:'g',bossName:'CHIEF GNASH & REX',floor:0.72},
+  {name:'GHOST SHIP',bg:'assets/bg3.webp',music:'assets/stage3.mp3',bossHp:40,boss:'w',bossName:'CAPTAIN WRAITHTAIL',floor:0.62}
 ];
 const BGS=STAGES.map(st=>{if(!st.bg)return null;const im=new Image();im.src=st.bg;return im;});
 let stage=0;
@@ -163,7 +158,7 @@ reset();
 const WAVES=[2,3,4,5];
 function spawnWave(){
   const n=WAVES[wave]+(players.length>1?1:0);
-  for(let i=0;i<n;i++){const side=i%2?1:-1;const ty=stage===1&&(i%3!==2||wave>1)?'c':'r';enemies.push({type:ty,z:Math.random()*ZMAX,x:side>0?1400+i*120:-120-i*120,face:-side,anim:'ewalk',t:0,hp:ty==='c'?4:3,cool:0.8+Math.random()*1.2,hitDone:false,dead:0,kb:0,flash:0});}
+  for(let i=0;i<n;i++){const side=i%2?1:-1;const ty=stage===1?((i%3!==2||wave>1)?'c':'r'):stage===2?((i%4!==3||wave>1)?'s':'c'):'r';enemies.push({type:ty,z:Math.random()*ZMAX,x:side>0?1400+i*120:-120-i*120,face:-side,anim:'ewalk',t:0,hp:ty==='c'?4:3,cool:0.8+Math.random()*1.2,hitDone:false,dead:0,kb:0,flash:0});}
   pops.push({x:640,y:300,t:1.6,txt:'WAVE '+(wave+1),big:true,fixed:true});sfx('wave');
 }
 function spawnBoss(){
@@ -178,7 +173,7 @@ function updateBoss(dt,play){
   e.x=Math.max(-100,Math.min(1450,e.x));
   if(e.anim==='bko'){if(done(e)){e.dead+=dt;if(e.dead>1.6&&state==='play'){score+=5000;hiscore=Math.max(hiscore,score);sfx('clear');stateT=0;state=stage<STAGES.length-1?'warp':'clear';}}return;}
   if(e.anim==='bhurt'){if(done(e)){setA(e,'bstand');e.cool=0.6;}return;}
-  if(e.anim==='batk'){const BA=AN(e),fi=BA.f[fIdx(e)];if(!e.hitDone&&fi>=BA.hitAt){e.hitDone=true;shake=20;sfx('smash');
+  if(e.anim==='batk'){const BA=AN(e),fi=BA.f[fIdx(e)];if(e.kind==='w'&&!e.hitDone&&fi>=BA.hitAt-6)e.x+=e.face*420*dt;if(!e.hitDone&&fi>=BA.hitAt){e.hitDone=true;shake=20;sfx('smash');if(e.kind==='w')rings.push({x:e.x+e.face*170,z:e.z,t:0,sl:e.face});
       for(let i=0;i<30;i++)sparks.push({x:e.x+e.face*(150+Math.random()*200),y:gy(e.z)-5,vx:(Math.random()-.5)*10,vy:-Math.random()*6,l:.9,dust:1});
       enemyHit(e,380,22,70);}
     if(done(e)){setA(e,'bstand');e.cool=1.2+Math.random()*1.2;}return;}
@@ -337,7 +332,7 @@ function loop(now){
     if(e.kb){e.x+=e.kb*dt;e.kb*=Math.pow(0.01,dt);if(Math.abs(e.kb)<8)e.kb=0;}
     if(e.anim==='eko'){if(done(e))e.dead+=dt;continue;}
     if(e.anim==='ehurt'){if(done(e)){setA(e,'estand');e.cool=0.5+Math.random()*.6;}continue;}
-    if(e.anim==='eatk'){const EAk=AN(e),fi=EAk.f[fIdx(e)];if(!e.hitDone&&fi>=EAk.hitAt){e.hitDone=true;if(e.type==='c'){shake=Math.max(shake,7);sfx('land');enemyHit(e,270,15,55);}else enemyHit(e);}if(done(e)){setA(e,'estand');e.cool=0.9+Math.random()*1.3;}continue;}
+    if(e.anim==='eatk'){const EAk=AN(e),fi=EAk.f[fIdx(e)];if(!e.hitDone&&fi>=EAk.hitAt){e.hitDone=true;if(e.type==='c'){shake=Math.max(shake,7);sfx('land');enemyHit(e,270,15,55);}else if(e.type==='s'){enemyHit(e,255,13,50);}else enemyHit(e);}if(done(e)){setA(e,'estand');e.cool=0.9+Math.random()*1.3;}continue;}
     // target nearest living player
     let tgt=null,bd=1e9;for(const p of players)if(p.alive){const d=Math.abs(p.x-e.x)+Math.abs(p.z-e.z);if(d<bd){bd=d;tgt=p;}}
     if(!tgt){if(e.anim!=='estand')setA(e,'estand');continue;}
@@ -427,7 +422,7 @@ function draw(T){
       }
     }
   }
-  rings.forEach(r=>{const k=r.t/0.5;cx.save();cx.globalAlpha=1-k;cx.strokeStyle='#ffd23f';cx.lineWidth=18*(1-k)+4;cx.beginPath();cx.ellipse(r.x,gy(r.z)-40,60+k*300,20+k*90,0,0,7);cx.stroke();cx.strokeStyle='#ff7ad9';cx.lineWidth=8;cx.beginPath();cx.ellipse(r.x,gy(r.z)-140,40+k*220,40+k*200,0,0,7);cx.stroke();cx.restore();});
+  rings.forEach(r=>{const k=r.t/0.5;if(r.sl){cx.save();cx.translate(r.x,gy(r.z)-190);cx.scale(r.sl,1);cx.globalAlpha=1-k;cx.shadowColor='#9ff';cx.shadowBlur=30;const R=150+k*70;cx.fillStyle='#e8ffff';cx.beginPath();cx.arc(-40,0,R,-1.25,1.25);cx.arc(-40-R*0.45,0,R*1.05,1.1,-1.1,true);cx.closePath();cx.fill();cx.strokeStyle='#6fdcff';cx.lineWidth=6;cx.stroke();cx.restore();return;}cx.save();cx.globalAlpha=1-k;cx.strokeStyle='#ffd23f';cx.lineWidth=18*(1-k)+4;cx.beginPath();cx.ellipse(r.x,gy(r.z)-40,60+k*300,20+k*90,0,0,7);cx.stroke();cx.strokeStyle='#ff7ad9';cx.lineWidth=8;cx.beginPath();cx.ellipse(r.x,gy(r.z)-140,40+k*220,40+k*200,0,0,7);cx.stroke();cx.restore();});
   sparks.forEach(s=>{if(s.dust){cx.fillStyle=`rgba(220,200,190,${s.l*.6})`;cx.beginPath();cx.arc(s.x,s.y,14*(1.4-s.l),0,7);cx.fill();}else{cx.fillStyle=`rgba(255,${200+Math.random()*55|0},60,${s.l})`;cx.fillRect(s.x,s.y,7,7);}});
   pops.forEach(p=>{cx.save();cx.translate(p.x,p.y);const sc=(p.big?1.4:1)*(1+Math.max(0,p.t-0.8)*2);cx.scale(sc,sc);cx.rotate(p.fixed?0:-0.12);
     cx.font='bold 46px Arial Black';cx.textAlign='center';cx.lineWidth=10;cx.strokeStyle='#000';cx.strokeText(p.txt,0,0);cx.fillStyle=p.fixed?'#fff':p.big?'#ff3b3b':'#ffd23f';cx.fillText(p.txt,0,0);cx.restore();});
@@ -437,7 +432,7 @@ function draw(T){
     cx.save();cx.translate(640,150);const s=1+Math.sin(T*3)*.03;cx.scale(s,s);cx.rotate(-0.04);
     cx.font='bold 130px Arial Black';cx.textAlign='center';cx.lineWidth=24;cx.strokeStyle='#000';cx.strokeText('TIME PAWS',0,0);
     const tg=cx.createLinearGradient(0,-100,0,20);tg.addColorStop(0,'#fff27a');tg.addColorStop(.5,'#ffb020');tg.addColorStop(1,'#ff4d2e');cx.fillStyle=tg;cx.fillText('TIME PAWS',0,0);cx.restore();
-    bigText(STAGES.length+' STAGES · NEON CITY → PREHISTORIC JUNGLE',640,215,24,'#ff7ad9');
+    bigText(STAGES.length+' STAGES · NEON CITY → PREHISTORIC JUNGLE → GHOST SHIP',640,215,22,'#ff7ad9');
     // character pick
     ORDER.forEach(c=>{const x=PX[c];
       const on=pick===c,C=CHARS[c];

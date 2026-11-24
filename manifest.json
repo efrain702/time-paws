@@ -1,0 +1,1 @@
+{"name":"Time Paws","short_name":"Time Paws","start_url":"./","scope":"./","display":"fullscreen","orientation":"landscape","background_color":"#1b0b38","theme_color":"#1b0b38","icons":[{"src":"assets/icon192.png","sizes":"192x192","type":"image/png"},{"src":"assets/icon512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}

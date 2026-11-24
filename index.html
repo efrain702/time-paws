@@ -23,6 +23,7 @@
   #bRage{right:calc(24px + env(safe-area-inset-right));bottom:calc(104px + env(safe-area-inset-bottom));width:62px;height:62px;font-size:13px;background:#ff3b3b44;border-color:#ffd23f}
   #bJump{right:calc(24px + env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom))}
   body.pad .btn,body.title .btn{display:none}
+  body.title #bMute{left:auto;right:calc(24px + env(safe-area-inset-right));top:calc(16px + env(safe-area-inset-top));bottom:auto}
   body.pad #bMute{left:calc(24px + env(safe-area-inset-left))}
   #bMute{position:fixed;bottom:calc(36px + env(safe-area-inset-bottom));left:calc(220px + env(safe-area-inset-left));width:44px;height:44px;border-radius:50%;background:#0006;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;z-index:6;cursor:pointer}
 </style>
@@ -151,7 +152,7 @@ let W,H,S,_cw=0,_ch=0;function rs(){const d=Math.min(devicePixelRatio||1,2),r=cv
 const GROUND=590,ZMAX=150;
 const gy=z=>GROUND-z*0.75, zs=z=>1-z*0.0009;
 const ORDER=['r','j','f','b'];const cyc=d=>{pick=ORDER[(ORDER.indexOf(pick)+d+4)%4];sfx('jump');};
-let items=[],started=false,boss=null,pick='r',players,enemies,shake,sparks,pops,score,combo,comboT,wave,waveT,state,stateT,hiscore=0;
+let items=[],started=false,boss=null,pick='r',players,enemies,shake,sparks,pops,score,combo,comboT,wave,waveT,state,stateT,hiscore=0,savedHi=0;try{savedHi=hiscore=parseInt(localStorage.getItem('tp_hi')||'0')||0;}catch(e){}
 function mkPlayer(c,slot){return{c,slot,z:slot?110:50,x:slot?420:300,face:1,anim:'idle',t:0,queued:false,hitDone:false,y:0,vy:0,hp:100,inv:slot?1.5:0,kb:0,alive:true,lives:3,respawn:0,rage:0};}
 function reset(){
   players=[mkPlayer(pick,0)];
@@ -208,7 +209,8 @@ function rage(p){
 let rings=[];
 function dropItem(e){if(Math.random()<0.28)items.push({x:e.x,z:e.z,y:-60,vy:-420,t:0});}
 function startGame(){stage=0;playStageMusic();initAudio();started=true;state='play';stateT=0;players=[mkPlayer(pick,0)];sfx('start');}
-function restart(){if(state==='title'){startGame();return;}if(state==='warp')return;if(stateT>1){if(state==='clear'){stage=0;playStageMusic();}const cs=players.map(p=>p.c);reset();players=cs.map((c,i)=>mkPlayer(c,i));sfx('start');}}
+function restart(){if(state==='title'){startGame();return;}if(state==='warp')return;if(stateT>1){const cont=state==='over',sc=score;if(state==='clear'){stage=0;playStageMusic();}const cs=players.map(p=>p.c);reset();players=cs.map((c,i)=>mkPlayer(c,i));if(cont){score=sc;pops.push({x:640,y:300,t:1.6,txt:'CONTINUE!',big:true,fixed:true});}sfx('start');}}
+function toTitle(){stage=0;started=false;reset();state='title';playStageMusic();}
 function joinP2(){if(state!=='play'||players.length>1)return;const c=ORDER[(ORDER.indexOf(players[0].c)+1)%ORDER.length];const p=mkPlayer(c,1);p.x=players[0].x<640?players[0].x+150:players[0].x-150;players.push(p);pops.push({x:p.x,y:gy(p.z)-420,t:1.4,txt:'P2 '+CHARS[c].name+' JOINS!',big:true});sfx('wave');}
 // P1 actions (keyboard, touch, first controller)
 function p1Attack(){if(state!=='play'){restart();return;}attack(players[0]);}
@@ -359,6 +361,8 @@ function loop(now){
   pops.forEach(p=>{p.t-=dt;if(!p.fixed)p.y-=40*dt;});pops=pops.filter(p=>p.t>0);
   comboT-=dt;if(comboT<=0)combo=0;shake*=Math.pow(0.02,dt);
   {const r=cv.getBoundingClientRect();if(Math.round(r.width)!==_cw||Math.round(r.height)!==_ch)rs();}
+  if(score>hiscore)hiscore=score;if(hiscore>savedHi){savedHi=hiscore;try{localStorage.setItem('tp_hi',String(hiscore));}catch(e){}}
+  if(state==='over'&&stateT>10.5)toTitle();
   draw(now/1000);requestAnimationFrame(loop);
 }
 function drawSprite(o,A,x,y,face,alpha,fi,sc=1){
@@ -448,7 +452,7 @@ function draw(T){
       bigText({r:'POWER',j:'REACH',f:'SMASH',b:'SPEED'}[c],x,GROUND+78,16,on?'#fff':'#888');
     });
     bigText(Math.floor(T*2)%2?'◀  PICK YOUR BEAR  ▶':'TAP '+CHARS[pick].name+' AGAIN TO START',640,255,26,Math.floor(T*2)%2?'#fff':CHARS[pick].color);
-    bigText('2nd controller? Press any button in-game to join',640,705,16,'#ffd23f');
+    bigText('2nd controller? Press any button in-game to join',640,705,16,'#ffd23f');if(hiscore>0)bigText('BEST '+hiscore,1180,705,18,'#fff');
   }else{
     hudBar(players[0],40,'left');
     if(players[1])hudBar(players[1],936,'right');
@@ -459,7 +463,7 @@ function draw(T){
     if(boss){cx.font='bold 24px Arial Black';cx.textAlign='center';cx.lineWidth=5;cx.strokeStyle='#000';cx.strokeText(STAGES[stage].bossName,640,118);cx.fillStyle='#ff4d4d';cx.fillText(STAGES[stage].bossName,640,118);
       cx.fillStyle='#000';cx.fillRect(390,126,500,20);cx.fillStyle='#c33cff';cx.fillRect(392,128,496*boss.hp/boss.maxhp,16);}
   }
-  if(state==='over'){cx.fillStyle='#000a';cx.fillRect(-500,0,2280,720);bigText('GAME OVER',640,300,90,'#ff3b3b');bigText('SCORE '+score+'   BEST '+hiscore,640,380,30,'#fff');if(stateT>1&&Math.floor(T*2)%2)bigText('PRESS PUNCH TO CONTINUE',640,470,28,'#ffd23f');}
+  if(state==='over'){cx.fillStyle='#000a';cx.fillRect(-500,0,2280,720);bigText('GAME OVER',640,230,90,'#ff3b3b');const cn=Math.max(0,9-Math.floor(Math.max(0,stateT-1)));bigText('CONTINUE?',640,330,44,'#fff');bigText(String(cn),640,440,120,cn<=3?'#ff3b3b':'#ffd23f');bigText('SCORE '+score+'   BEST '+hiscore,640,520,28,'#fff');if(stateT>1&&Math.floor(T*2)%2)bigText('PRESS HIT TO KEEP FIGHTING ON STAGE '+(stage+1),640,580,26,'#5ec8ff');}
   if(state==='warp'){
     const k=Math.min(1,stateT/4.2);
     if(stateT>2){cx.save();cx.translate(640,360);for(let i=0;i<18;i++){cx.rotate(T*(1+k*4)+i*.35);cx.strokeStyle=`hsla(${270+i*8},95%,65%,${(stateT-2)/2.2*.6})`;cx.lineWidth=30;cx.beginPath();cx.arc(0,0,30+i*45*(1+k),0,Math.PI*1.3);cx.stroke();}cx.restore();

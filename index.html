@@ -251,7 +251,7 @@ function doSpecial(p){
 }
 let rings=[];
 function dropItem(e){if(Math.random()<0.28)items.push({x:e.x,z:e.z,y:-60,vy:-420,t:0});}
-function startGame(){stage=startStage;reset();started=true;state='play';stateT=0;playStageMusic();initAudio();players=[mkPlayer(pick,0)];spawnProps(2);sfx('start');setTimeout(()=>voice('fight'),400);}
+function startGame(){if(loaded<SHEET_TOTAL){pendingStart=true;sfx('jump');return;}pendingStart=false;stage=startStage;reset();started=true;state='play';stateT=0;playStageMusic();initAudio();players=[mkPlayer(pick,0)];spawnProps(2);sfx('start');setTimeout(()=>voice('fight'),400);}
 function restart(){if(introPlaying){endIntro();return;}if(state==='title'){titleStart();return;}if(state==='warp')return;if(stateT>1){const cont=state==='over',sc=score;if(state==='clear'){stage=0;playStageMusic();}const cs=players.map(p=>p.c);reset();players=cs.map((c,i)=>mkPlayer(c,i));spawnProps(2);if(cont){score=sc;pops.push({x:640,y:300,t:1.6,txt:'CONTINUE!',big:true,fixed:true});}sfx('start');voice('fight');}}
 function toTitle(){stage=0;started=false;reset();state='title';playStageMusic();}
 function joinP2(){if(state!=='play'||players.length>1)return;const c=ORDER[(ORDER.indexOf(players[0].c)+1)%ORDER.length];const p=mkPlayer(c,1);p.x=players[0].x<640?players[0].x+150:players[0].x-150;players.push(p);pops.push({x:p.x,y:gy(p.z)-420,t:1.4,txt:'P2 '+CHARS[c].name+' JOINS!',big:true});sfx('wave');}
@@ -425,10 +425,11 @@ function loop(now){
   {const r=cv.getBoundingClientRect();if(Math.round(r.width)!==_cw||Math.round(r.height)!==_ch)rs();}
   if(score>hiscore)hiscore=score;if(hiscore>savedHi){savedHi=hiscore;try{localStorage.setItem('tp_hi',String(hiscore));}catch(e){}}
   if(state==='over'&&stateT>10.5)toTitle();
+  if(pendingStart&&loaded>=SHEET_TOTAL&&state==='title'&&!introPlaying)startGame();
   draw(now/1000);requestAnimationFrame(loop);
 }
 function drawSprite(o,A,x,y,face,alpha,fi,sc=1){
-  const sh=SHEETS[A.s],im=IMGS[A.s];
+  const sh=SHEETS[A.s],im=IMGS[A.s];if(!im||!im.complete||!im.naturalWidth)return;
   const f=A.f[fi===undefined?fIdx(o):fi],sx=(f%sh.cols)*sh.fw,sy=Math.floor(f/sh.cols)*sh.fh,k=380*sc/300;
   cx.save();cx.globalAlpha=alpha;cx.translate(x,y);cx.scale(face,1);
   cx.drawImage(im,sx,sy,sh.fw,sh.fh,-sh.ax*k,-sh.fh*k,sh.fw*k,sh.fh*k);cx.restore();
@@ -546,6 +547,7 @@ function draw(T){
     if(cleared){bigText('▼ STAGE '+(startStage+1)+': '+STAGES[startStage].name+' ▼',850,298,22,'#5ec8ff');bigText('stage select',850,318,13,'#ccc');}
     else{bigText('🔒 Beat the game to unlock stage select',850,302,15,'#999');}
     bigText('▶ INTRO',90,40,20,'#fff');
+    if(loaded<SHEET_TOTAL){const pc=loaded/SHEET_TOTAL;cx.fillStyle='#000a';cx.fillRect(20,56,224,14);cx.fillStyle='#ffd23f';cx.fillRect(22,58,220*pc,10);bigText((pendingStart?'GET READY… ':'LOADING ')+Math.round(pc*100)+'%',132,92,16,'#fff');}
     if(padNames.length){cx.font='bold 14px Arial';cx.textAlign='left';cx.fillStyle='#9dff7a';padNames.slice(0,2).forEach((n,k)=>{const L=padLast[k];cx.fillText('🎮 P'+(k+1)+': '+n.slice(0,38)+' ['+(padMaps[k]==='standard'?'std':'other')+']'+(L&&performance.now()-L.t<4000?'  button '+L.k:''),20,664+k*18);});}
     else{cx.font='bold 14px Arial';cx.textAlign='left';cx.fillStyle='#aaa';cx.fillText('🎮 No controller seen yet — press any button on it',20,682);}}
   if(state==='over'){cx.fillStyle='#000a';cx.fillRect(-500,0,2280,720);bigText('GAME OVER',640,230,90,'#ff3b3b');const cn=Math.max(0,9-Math.floor(Math.max(0,stateT-1)));bigText('CONTINUE?',640,330,44,'#fff');bigText(String(cn),640,440,120,cn<=3?'#ff3b3b':'#ffd23f');bigText('SCORE '+score+'   BEST '+hiscore,640,520,28,'#fff');if(stateT>1&&Math.floor(T*2)%2)bigText('PRESS HIT TO KEEP FIGHTING ON STAGE '+(stage+1),640,580,26,'#5ec8ff');}
@@ -565,7 +567,12 @@ function draw(T){
   if(state==='play'){cx.textAlign='center';cx.font='bold 18px Arial';cx.fillStyle='#fffc';
     cx.fillText(padNames.length?'🎮 Stick: move · A: jump · X: attack (3× finisher) · L/R shoulder: BEAR RAGE':'HIT 3× for the finisher · RAGE hits everyone around you (costs a little health) · grab 🍯 honey to heal',640,708);}
 }
-for(const k in SHEETS){const im=new Image();im.onload=()=>{if(++loaded===Object.keys(SHEETS).length)requestAnimationFrame(loop);};im.src=SHEETS[k].src;IMGS[k]=im;}
+const SHEET_TOTAL=Object.keys(SHEETS).length;let pendingStart=false;
+{const pri=[...new Set(ORDER.map(c=>CHARS[c].A.idle.s))],rest=Object.keys(SHEETS).filter(k=>!pri.includes(k));let qi=0;
+ const one=k=>{const im=new Image();im.decoding='async';const fin=()=>{loaded++;next();};im.onload=fin;im.onerror=fin;im.src=SHEETS[k].src;IMGS[k]=im;};
+ const next=()=>{if(qi<rest.length)one(rest[qi++]);};
+ pri.forEach(one);for(let i=0;i<3;i++)next();}
+requestAnimationFrame(loop);
 }
 
 </script>
